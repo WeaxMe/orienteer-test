@@ -66,7 +66,7 @@ public class TestClass {
         String date = "2017-05-09";
         String field = "date";
         String className = "TestDateClass";
-        String sql = String.format(QUERY_TEMPLATE, className, field, date);
+        String sql = String.format("select from %s where %s like '%s'", className, field, date);
         ODocument doc = manager.createDocumentField(className, field, OType.DATE, date);
         LOG.info("Created document: {} ", doc);
         manager.showOClassDocuments(className);
