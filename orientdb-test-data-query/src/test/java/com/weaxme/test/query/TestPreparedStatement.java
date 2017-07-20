@@ -12,9 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.Assert.assertTrue;
 
@@ -107,6 +105,30 @@ public class TestPreparedStatement {
         LOG.info("query: {}", query);
         Map<String, Object> params = new HashMap<>();
         params.put(dateTimeField, new SimpleDateFormat(dateTimeFormat).parse(dateTimeValue));
+        assertTrue(db.query(query, params).size() == 1);
+    }
+
+    @Test
+    public void testDateTimeCollectionPreparedStatement() throws ParseException {
+        openDatabase();
+        OSQLSynchQuery<List<ODocument>> query = new OSQLSynchQuery<>(
+                String.format("SELECT FROM %s WHERE %s IN :%s", className, dateTimeField, dateTimeField));
+        LOG.info("query: {}", query);
+        Map<String, Object> params = new HashMap<>();
+        Date date = new SimpleDateFormat(dateTimeFormat).parse(dateTimeValue);
+        params.put(dateTimeField, Arrays.asList(date));
+        assertTrue(db.query(query, params).size() == 1);
+    }
+
+    @Test
+    public void testDateCollectionPreparedStatement() throws ParseException {
+        openDatabase();
+        OSQLSynchQuery<List<ODocument>> query = new OSQLSynchQuery<>(
+                String.format("SELECT FROM %s WHERE %s IN :%s", className, dateField, dateField));
+        LOG.info("query: {}", query);
+        Map<String, Object> params = new HashMap<>();
+        Date date = new SimpleDateFormat(dateFormat).parse(dateValue);
+        params.put(dateField, Arrays.asList(date));
         assertTrue(db.query(query, params).size() == 1);
     }
 
