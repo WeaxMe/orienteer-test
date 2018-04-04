@@ -15,7 +15,7 @@ public class TestScheduler {
     private static final Logger LOG = LoggerFactory.getLogger(TestScheduler.class);
 
     public void run() throws InterruptedException {
-        long timeout = 30_000;
+        long timeout = 60_000;
         String cronExpr = "0 0/1 * 1/1 * ? *";
         ODatabaseDocument db = createDatabase();
         OScheduledEvent e = createEvent(cronExpr, timeout);
