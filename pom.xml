@@ -13,6 +13,7 @@
         <module>orientdb-test-data-query</module>
         <module>orientdb-test-schedule</module>
         <module>orientdb-restricted-test</module>
+        <module>orientdb-scheduler-test</module>
     </modules>
 
     <properties>
